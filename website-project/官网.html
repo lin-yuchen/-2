@@ -89,12 +89,14 @@
             font-size: 2rem;
         }
 
-        /* 如果使用图片作为 logo（本地文件），调整尺寸与间距 */
+        /* 如果使用图片作为 logo（本地文件），调整尺寸与间距（严格限制高度以避免过大） */
         .logo img.site-logo {
             margin-right: 12px;
-            width: 48px;
+            max-height: 44px;
             height: auto;
+            width: auto;
             display: block;
+            object-fit: contain;
             border-radius: 4px;
         }
         /* 页脚 logo 的样式（与头部一致或可单独调整） */
@@ -1502,11 +1504,11 @@
         <div class="container">
             <div class="nav-container">
                 <a href="#carousel" class="logo">
-                    <!-- 本地桌面 LOGO：已改为相对路径，请将图片放到 assets/logo/ 公司仓库中 -->
-                    <img class="site-logo" src="assets/logo/公司LOGO.png" alt="升捷發展有限公司 LOGO">
+                    <!-- 本地桌面 LOGO：请确保文件名为 C:/Users/Administrator/Desktop/公司LOGO.png -->
+                    <img class="site-logo" src="file:///C:/Users/Administrator/Desktop/公司LOGO.png" alt="升捷發展有限公司 LOGO">
                     <div class="logo-text">
                         <span class="logo-main">升捷發展有限公司</span>
-                        <span class="logo-sub">SHENG JIE FA ZHAN </span>
+                        <span class="logo-sub">GALAXY ELITE DEVELOPMENT LIMITED</span>
                     </div>
                 </a>
                 
@@ -2065,22 +2067,22 @@
             <div class="footer-content">
                 <div class="footer-about">
                     <div class="footer-logo">
-                        <img class="site-logo" src="assets/logo/公司LOGO.png" alt="升捷發展有限公司 LOGO">
+                        <img class="site-logo" src="file:///C:/Users/Administrator/Desktop/公司LOGO.png" alt="升捷發展有限公司 LOGO">
                         <span>升捷發展有限公司</span>
                     </div>
                     <p>我们是一家专业的劳务与物流服务提供商，专注于香港劳务外包、人力资源、宅配城配、打板及跨境运输服务，致力于为客户提供全方位解决方案</p>
                     <div class="social-icons">
                         <!-- 使用图标显示（原始样式），点击时显示预览：桌面为小型 popover，移动端回退到模态框 -->
-                        <a href="#" class="qr-link" data-img="assets/qr/qr_wechat_friend.png" title="微信加好友">
+                        <a href="#" class="qr-link" data-img="file:///C:/Users/Administrator/Desktop/qr_wechat_friend.png" title="微信加好友">
                             <i class="fab fa-weixin" aria-hidden="true" style="font-size:1.6rem;color:#fff"></i>
                         </a>
-                        <a href="#" class="qr-link" data-img="assets/qr/qr_whatsapp.png" title="WhatsApp 联系">
+                        <a href="#" class="qr-link" data-img="file:///C:/Users/Administrator/Desktop/qr_whatsapp.png" title="WhatsApp 联系">
                             <i class="fab fa-whatsapp" aria-hidden="true" style="font-size:1.6rem;color:#fff"></i>
                         </a>
-                        <a href="#" class="qr-link" data-img="assets/qr/qr_wechat_official.png" title="微信公众号">
+                        <a href="#" class="qr-link" data-img="file:///C:/Users/Administrator/Desktop/qr_wechat_official.png" title="微信公众号">
                             <i class="fab fa-weixin" aria-hidden="true" style="font-size:1.6rem;color:#fff"></i>
                         </a>
-                        <a href="#" class="qr-link" data-img="assets/qr/qr_xiaohongshu.png" title="小红书">
+                        <a href="#" class="qr-link" data-img="file:///C:/Users/Administrator/Desktop/qr_xiaohongshu.png" title="小红书">
                             <i class="fas fa-book" aria-hidden="true" style="font-size:1.6rem;color:#fff"></i>
                         </a>
                     </div>
@@ -2515,43 +2517,88 @@
         <div id="imgModal" class="img-modal" aria-hidden="true" role="dialog" aria-label="图片预览">
                 <div class="img-modal-backdrop" data-action="close"></div>
                 <div class="img-modal-panel">
-                        <button class="img-modal-close" aria-label="关闭">&times;</button>
-                        <img id="imgModalImg" src="" alt="二维码预览">
-                        <div class="img-modal-caption" id="imgModalCaption"></div>
+            <button class="img-modal-close" aria-label="关闭">&times;</button>
+            <button class="img-modal-nav prev" aria-label="上一张">&#8592;</button>
+            <button class="img-modal-nav next" aria-label="下一张">&#8594;</button>
+            <img id="imgModalImg" src="" alt="二维码预览">
+            <div class="img-modal-caption" id="imgModalCaption"></div>
                 </div>
         </div>
 
         <style>
         /* 简单的 modal 样式，局部放在 body 末尾以避免修改 head 区域 */
-        .img-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 3000; }
-        .img-modal.open { display: flex; }
-        .img-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
-        .img-modal-panel { position: relative; max-width: min(90vw,420px); width: 100%; background: #fff; padding: 12px; border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); z-index: 1; display:flex; flex-direction:column; align-items:center; gap:8px; }
-        .img-modal-panel img { width: 100%; height: auto; border-radius:6px; }
-        .img-modal-close { position: absolute; top:6px; right:8px; background: transparent; border: none; font-size:1.6rem; cursor:pointer; color:#333; }
-        .img-modal-caption { font-size:0.9rem; color:#555; text-align:center; }
+    .img-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 3000; }
+    .img-modal.open { display: flex; }
+    /* 更轻的遮罩，减少页面变暗感 */
+    .img-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.35); }
+    .img-modal-panel { position: relative; max-width: min(90vw,640px); width: 100%; background: #fff; padding: 12px; border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); z-index: 1; display:flex; flex-direction:column; align-items:center; gap:8px; }
+    .img-modal-panel img { width: 100%; height: auto; border-radius:6px; }
+    .img-modal-close { position: absolute; top:6px; right:8px; background: transparent; border: none; font-size:1.6rem; cursor:pointer; color:#333; }
+    .img-modal-caption { font-size:0.9rem; color:#555; text-align:center; }
+    /* 导航按钮（上一张/下一张） */
+    .img-modal-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border: none; width: 40px; height: 40px; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); cursor: pointer; display:flex; align-items:center; justify-content:center; font-size: 1.1rem; }
+    .img-modal-nav.prev { left: -56px; }
+    .img-modal-nav.next { right: -56px; }
+    @media (max-width:600px) { .img-modal-nav { display:none; } }
         @media (max-width:480px) { .img-modal-panel { max-width: 96vw; padding: 10px; } }
         </style>
 
         <script>
         (function(){
-            function openImgModal(src, alt){
+            // Modal image gallery support
+            var _modalImages = []; // array of {src, alt}
+            var _modalIndex = -1;
+
+            function buildModalImageList(){
+                _modalImages = [];
+                document.querySelectorAll('.qr-link').forEach(function(a){
+                    if (a.dataset && a.dataset.img) _modalImages.push({ src: a.dataset.img, alt: a.title || '' });
+                });
+            }
+
+            function showModalAtIndex(i){
+                if (!_modalImages.length) buildModalImageList();
+                if (i < 0) i = _modalImages.length - 1;
+                if (i >= _modalImages.length) i = 0;
+                _modalIndex = i;
+                var item = _modalImages[_modalIndex];
                 var modal = document.getElementById('imgModal');
                 var img = document.getElementById('imgModalImg');
                 var cap = document.getElementById('imgModalCaption');
-                img.src = src;
-                img.alt = alt || '二维码';
-                cap.textContent = alt || '';
+                img.src = item.src;
+                img.alt = item.alt || '图片预览';
+                cap.textContent = item.alt || '';
                 modal.classList.add('open');
                 modal.setAttribute('aria-hidden','false');
+                // 阻止背景滚动，避免滚动时遮罩移动引起奇怪体验
+                document.body.style.overflow = 'hidden';
             }
+
+            function openImgModal(src, alt){
+                // try to open at index if present in modal list
+                buildModalImageList();
+                var idx = _modalImages.findIndex(function(it){ return it.src === src; });
+                if (idx === -1) {
+                    // not in list, push temporarily
+                    _modalImages.push({ src: src, alt: alt || '' });
+                    idx = _modalImages.length - 1;
+                }
+                showModalAtIndex(idx);
+            }
+
             function closeImgModal(){
                 var modal = document.getElementById('imgModal');
                 var img = document.getElementById('imgModalImg');
                 modal.classList.remove('open');
                 modal.setAttribute('aria-hidden','true');
+                // 恢复页面滚动
+                document.body.style.overflow = '';
                 setTimeout(function(){ img.src = ''; }, 200);
+                _modalIndex = -1;
             }
+
+            function modalPrev(){ showModalAtIndex((_modalIndex === -1 ? 0 : _modalIndex - 1)); }
+            function modalNext(){ showModalAtIndex((_modalIndex === -1 ? 0 : _modalIndex + 1)); }
 
             // 小型锚点式 popover（桌面）
             var currentPopover = null;
@@ -2632,9 +2679,17 @@
                 }
             });
 
-            // Esc 键关闭任一预览
+            // Esc / 方向键关闭或导航任一预览
             document.addEventListener('keydown', function(e){
                 if (e.key === 'Escape') { closeImgModal(); closeQrPopover(); }
+                if (e.key === 'ArrowLeft') { if (document.getElementById('imgModal').classList.contains('open')) modalPrev(); }
+                if (e.key === 'ArrowRight') { if (document.getElementById('imgModal').classList.contains('open')) modalNext(); }
+            });
+
+            // 绑定模态内的 prev/next 按钮
+            document.addEventListener('click', function(e){
+                if (e.target.closest('.img-modal-nav.prev')) { e.preventDefault(); modalPrev(); }
+                if (e.target.closest('.img-modal-nav.next')) { e.preventDefault(); modalNext(); }
             });
         })();
         </script>
